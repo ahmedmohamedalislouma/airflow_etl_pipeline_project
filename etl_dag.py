@@ -16,7 +16,7 @@ import queries
 @task.branch(task_id="branch_task")
 def branch_func(ids_to_update):
     if ids_to_update == "":
-        return "dumm"
+        return "dummy"
     else:
         return "snowflake_update" 
           
@@ -35,8 +35,8 @@ with DAG("join_INSERT", start_date=datetime(2023, 5, 14), schedule=None, catchup
     task_id='task_emp_sal',
     query="SELECT * FROM finance.emp_sal",
     s3_bucket='staging.emp.data',
-    s3_key='ahmedali_emp_sal.csv',
-    sql_conn_id='ahmed_postgres',
+    s3_key='emp_sal.csv',
+    sql_conn_id='postgres',
     aws_conn_id='AWS_BUCKET',
     replace = True
     )
@@ -45,15 +45,15 @@ with DAG("join_INSERT", start_date=datetime(2023, 5, 14), schedule=None, catchup
     task_id='task_emp_det',
     query="SELECT * FROM hr.emp_details",
     s3_bucket='staging.emp.data',
-    s3_key='ahmedali_emp_details.csv',
+    s3_key='emp_details.csv',
     aws_conn_id='AWS_BUCKET',
-    sql_conn_id='ahmed_postgres',
+    sql_conn_id='postgres',
     replace = True
     )
 
 
     task4 = SnowflakeOperator(task_id="snowflake_insert", sql=rows_insert, snowflake_conn_id="SNOW", trigger_rule="none_failed")
     task3 = SnowflakeOperator(task_id="snowflake_update", sql=rows_upd, snowflake_conn_id="SNOW")
-    dummy=DummyOperator(task_id="dumm")
+    dummy=DummyOperator(task_id="dummy")
     [task1,task2]>>data >> branch_op >> [task3 , dummy] >> task4
    
