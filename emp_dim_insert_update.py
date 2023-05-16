@@ -10,15 +10,15 @@ from airflow.decorators import task
 @task(multiple_outputs=True)
 def join_and_detect_new_or_changed_rows():
     ################################### Connect to S3 #####################################
-    AWS_ACCESS_KEY='AKIAUYVU2LE7QYPX3Y7K'
-    AWS_SECRET_KEY='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'
+    AWS_ACCESS_KEY='******************'
+    AWS_SECRET_KEY='****************************'
 
     os.environ['AWS_ACCESS_KEY_ID']=AWS_ACCESS_KEY
     os.environ['AWS_SECRET_ACCESS_KEY']=AWS_SECRET_KEY
 
-    emp_detail = pd.read_csv('s3://staging.emp.data/ahmedali_emp_details2.csv')
+    emp_detail = pd.read_csv('s3://staging.emp.data/emp_details.csv')
     emp_detail.drop(columns='Unnamed: 0', inplace=True)
-    emp_sal = pd.read_csv('s3://staging.emp.data/ahmedali_emp_sal2.csv')
+    emp_sal = pd.read_csv('s3://staging.emp.data/emp_sal.csv')
     emp_sal.drop(columns='Unnamed: 0', inplace=True)
     print("Succesfully read data from AWS S3")
     
@@ -31,9 +31,9 @@ def join_and_detect_new_or_changed_rows():
     ################################### Connect to DWH ###################################
     # Use your Snowfake user credentials to connect
     conn = connect(
-            user='AHMEDALI',
-            password='Ahmedali$#$123',
-            account='xejasch-jh44868'
+            user='********',
+            password='*********',
+            account='*************'
         )
     print("Connected to Snowflake DWH succesfully")
     
