@@ -51,3 +51,7 @@ This repository provides an Airflow DAG (Directed Acyclic Graph) that orchestrat
 5. Monitor the progress and status of the DAG execution through the Airflow UI.
 
 
+![image](https://github.com/ahmedmohamedalislouma/airflow_etl_pipeline_project/assets/101593935/cca7b642-ae08-458b-a1e3-9dfbd965c94d)
+
+
+
